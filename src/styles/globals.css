@@ -1,0 +1,409 @@
+/* ─── CSS Custom Properties ──────────────────────────────────────────────── */
+:root {
+  /* Colors */
+  --clr-bg: #05050f;
+  --clr-bg-alt: #0a0a1a;
+  --clr-surface: rgba(255, 255, 255, 0.03);
+  --clr-surface-hover: rgba(255, 255, 255, 0.06);
+  --clr-border: rgba(255, 255, 255, 0.07);
+  --clr-border-glow: rgba(99, 102, 241, 0.3);
+
+  /* Accent palette */
+  --clr-primary: #6366f1;      /* Indigo */
+  --clr-primary-light: #818cf8;
+  --clr-secondary: #06b6d4;    /* Cyan */
+  --clr-accent: #8b5cf6;       /* Violet */
+  --clr-accent-warm: #f59e0b;  /* Amber */
+
+  /* Text */
+  --clr-text: #f1f5f9;
+  --clr-text-muted: #94a3b8;
+  --clr-text-dim: #475569;
+
+  /* Gradients */
+  --grad-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --grad-secondary: linear-gradient(135deg, #06b6d4 0%, #6366f1 100%);
+  --grad-hero: radial-gradient(ellipse at 60% 40%, rgba(99,102,241,0.15) 0%, transparent 60%),
+               radial-gradient(ellipse at 20% 80%, rgba(6,182,212,0.1) 0%, transparent 50%);
+  --grad-text: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 40%, #a5b4fc 100%);
+
+  /* Glows */
+  --glow-primary: 0 0 40px rgba(99, 102, 241, 0.25);
+  --glow-secondary: 0 0 40px rgba(6, 182, 212, 0.2);
+  --glow-sm: 0 0 15px rgba(99, 102, 241, 0.3);
+
+  /* Typography */
+  --font-sans: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Spacing */
+  --section-padding: clamp(5rem, 10vw, 8rem);
+  --container-max: 1200px;
+  --container-pad: clamp(1.5rem, 5vw, 3rem);
+
+  /* Transitions */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.0, 0.0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 600ms;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* Z-index layers */
+  --z-base: 0;
+  --z-card: 10;
+  --z-nav: 100;
+  --z-overlay: 200;
+  --z-cursor: 999;
+  --z-loader: 1000;
+}
+
+/* ─── Reset & Base ───────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--clr-bg);
+  color: var(--clr-text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  cursor: none;
+}
+
+@media (max-width: 768px) {
+  body { cursor: auto; }
+}
+
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+input, textarea, select {
+  font: inherit;
+}
+
+/* ─── Typography ─────────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.display-1 {
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.display-2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.section-heading {
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-subheading {
+  font-size: 1.05rem;
+  color: var(--clr-text-muted);
+  font-weight: 400;
+  margin-top: 0.5rem;
+}
+
+.label-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--clr-primary);
+  opacity: 0.8;
+}
+
+/* ─── Layout Utilities ───────────────────────────────────────────────────── */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}
+
+.section {
+  padding: var(--section-padding) 0;
+  position: relative;
+}
+
+.section-alt {
+  background: var(--clr-bg-alt);
+}
+
+/* Grid helpers */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+@media (max-width: 900px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+@media (min-width: 640px) and (max-width: 900px) {
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Flex helpers */
+.flex { display: flex; }
+.flex-center { display: flex; align-items: center; justify-content: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+
+/* ─── Glassmorphism Card ─────────────────────────────────────────────────── */
+.glass-card {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color var(--duration-base) var(--ease-smooth),
+              box-shadow var(--duration-base) var(--ease-smooth),
+              transform var(--duration-base) var(--ease-smooth);
+}
+
+.glass-card:hover {
+  border-color: var(--clr-border-glow);
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.1), 0 8px 32px rgba(0,0,0,0.3);
+  transform: translateY(-3px);
+}
+
+/* ─── Buttons ────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+  transition: all var(--duration-base) var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.05);
+  opacity: 0;
+  transition: opacity var(--duration-fast);
+}
+
+.btn:hover::before { opacity: 1; }
+
+.btn-primary {
+  background: var(--grad-primary);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(99,102,241,0.4);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 30px rgba(99,102,241,0.6);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  border: 1px solid var(--clr-border);
+  color: var(--clr-text);
+}
+
+.btn-outline:hover {
+  border-color: var(--clr-primary);
+  color: var(--clr-primary-light);
+  box-shadow: var(--glow-sm);
+  transform: translateY(-2px);
+}
+
+/* ─── Tags / Pills ───────────────────────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  background: rgba(99,102,241,0.1);
+  border: 1px solid rgba(99,102,241,0.2);
+  color: var(--clr-primary-light);
+  letter-spacing: 0.03em;
+  transition: all var(--duration-fast);
+}
+
+.tag:hover {
+  background: rgba(99,102,241,0.2);
+  border-color: rgba(99,102,241,0.4);
+}
+
+/* ─── Section Header ─────────────────────────────────────────────────────── */
+.section-header {
+  margin-bottom: 3.5rem;
+}
+
+.section-header .label-tag {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+/* ─── Divider ────────────────────────────────────────────────────────────── */
+.divider {
+  width: 3rem;
+  height: 2px;
+  background: var(--grad-primary);
+  border-radius: 2px;
+  margin-top: 1rem;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--clr-bg); }
+::-webkit-scrollbar-thumb {
+  background: rgba(99,102,241,0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(99,102,241,0.5); }
+
+/* ─── Selection ──────────────────────────────────────────────────────────── */
+::selection {
+  background: rgba(99,102,241,0.3);
+  color: #fff;
+}
+
+/* ─── Focus ──────────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--clr-primary);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ─── Animated gradient noise background ────────────────────────────────── */
+.bg-noise::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ─── Glow orbs (ambient background) ────────────────────────────────────── */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb-1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+  top: -200px;
+  right: -200px;
+}
+
+.orb-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(6,182,212,0.08) 0%, transparent 70%);
+  bottom: -100px;
+  left: -150px;
+}
+
+/* ─── Reveal animation base states ──────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-smooth);
+}
+
+/* ─── Gradient line decoration ───────────────────────────────────────────── */
+.gradient-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--clr-border-glow), transparent);
+}
+
+/* ─── Mono text decoration ───────────────────────────────────────────────── */
+.mono { font-family: var(--font-mono); }
+
+/* ─── App visibility ─────────────────────────────────────────────────────── */
+.app {
+  transition: opacity 0.4s ease;
+}
+
+.app--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.app--visible {
+  opacity: 1;
+}
+
+/* ─── Accessibility ──────────────────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
