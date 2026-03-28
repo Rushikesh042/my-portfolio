@@ -1,0 +1,63 @@
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease, width 0.25s ease, height 0.25s ease,
+              background-color 0.25s ease, border-color 0.25s ease;
+  will-change: transform;
+}
+
+.cursor-dot.visible,
+.cursor-ring.visible {
+  opacity: 1;
+}
+
+/* Dot — precise position indicator */
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--clr-primary);
+  margin-left: -3px;
+  margin-top: -3px;
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.8);
+}
+
+.cursor-dot.hovering {
+  width: 8px;
+  height: 8px;
+  background: var(--clr-secondary);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.8);
+  margin-left: -4px;
+  margin-top: -4px;
+}
+
+/* Ring — lagged follower */
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(99, 102, 241, 0.5);
+  margin-left: -18px;
+  margin-top: -18px;
+  background: transparent;
+}
+
+.cursor-ring.hovering {
+  width: 52px;
+  height: 52px;
+  border-color: rgba(6, 182, 212, 0.4);
+  background: rgba(99, 102, 241, 0.04);
+  margin-left: -26px;
+  margin-top: -26px;
+}
+
+@media (max-width: 768px) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
